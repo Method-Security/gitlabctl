@@ -1,3 +1,4 @@
+// Package projects holds the data structures and logic necessary to interact with the Gitlab API and enumerate projects.
 package projects
 
 import (
@@ -7,12 +8,19 @@ import (
 	"github.com/xanzy/go-gitlab"
 )
 
+// EnumerateProjectsOptions holds the options for enumerating projects.
+// The Mine field is used to filter projects that are owned by the authenticated user, only returning projects that are owned
+// by the authenticated user when set to true.
+// The Archived field is used to filter for archived projects, including archived when set to true.
+// The GroupID field is used to filter projects by group ID, only returning projects that are part of the specified group.
 type EnumerateProjectsOptions struct {
 	Mine     bool   `json:"mine"`
 	Archived bool   `json:"archived"`
 	GroupID  string `json:"group_id"`
 }
 
+// FindGroupByName searches for a group by name using the provided Gitlab client. If the group is found, it is returned.
+// If the group is not found, an error is returned.
 func FindGroupByName(ctx context.Context, client *gitlab.Client, groupName string) (*gitlab.Group, error) {
 	options := &gitlab.ListGroupsOptions{
 		Search: gitlab.Ptr(groupName),
@@ -32,6 +40,8 @@ func FindGroupByName(ctx context.Context, client *gitlab.Client, groupName strin
 	return nil, fmt.Errorf("group %s not found", groupName)
 }
 
+// EnumerateProjects enumerates projects using the provided Gitlab client and options. The function returns a GitlabResourceReport
+// containing the resources and non-fatal errors encountered during the enumeration process.
 func EnumerateProjects(ctx context.Context, baseURL string, options *EnumerateProjectsOptions, client *gitlab.Client) (*GitlabResourceReport, error) {
 	report := &GitlabResourceReport{
 		Resources: GitlabResources{},
@@ -68,6 +78,8 @@ func EnumerateProjects(ctx context.Context, baseURL string, options *EnumeratePr
 	return report, nil
 }
 
+// EnumerateProjectsForGroup enumerates projects for a specific group using the provided Gitlab client and options. The function
+// returns a GitlabResourceReport containing the resources and non-fatal errors encountered during the enumeration process.
 func EnumerateProjectsForGroup(ctx context.Context, baseURL string, client *gitlab.Client, options *EnumerateProjectsOptions) (*GitlabResourceReport, error) {
 	report := &GitlabResourceReport{
 		Resources: GitlabResources{},

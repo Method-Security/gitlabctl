@@ -1,3 +1,6 @@
+// Package cmd implements the CobraCLI commands for the methodaws CLI. Subcommands for the CLI should all live within
+// this package. Logic should be delegated to internal packages and functions to keep the CLI commands clean and
+// focused on CLI I/O.
 package cmd
 
 import (
@@ -15,6 +18,9 @@ import (
 	"github.com/xanzy/go-gitlab"
 )
 
+// Gitlabctl is the main struct for the gitlabctl CLI. It contains the version, root flags, output config, output signal,
+// information, providing a context for subcommands to leverage during execution. The output signal is used to write the
+// output of the command to the desired output format and location.
 type Gitlabctl struct {
 	Version          string
 	RootFlags        config.RootFlags
@@ -27,6 +33,8 @@ type Gitlabctl struct {
 	GitlabClient     *gitlab.Client
 }
 
+// NewGitlabctl creates a new Gitlabctl struct with the provided version. The root flags, output config, and output format.
+// We pass the version in here from our main.go file, where we set the version string during the build process.
 func NewGitlabctl(version string) *Gitlabctl {
 	gitlabctl := Gitlabctl{
 		Version: version,
@@ -42,6 +50,12 @@ func NewGitlabctl(version string) *Gitlabctl {
 	return &gitlabctl
 }
 
+// InitRootCommand initializes the root command for the gitlabctl CLI. This command sets up the persistent flags for the
+// CLI, including the quiet, verbose, base-url, token, output-file, and output flags. The root command also sets up the
+// version command, which prints the version of the gitlabctl CLI.
+// The root command sets the PersistentPreRunE, which is responsible for initializing the output signal, as well as creating
+// the Gitlab client that will be used in all commands. The PersistentPostRunE is responsible for writing the output of the
+// command to the desired output format and location.
 func (a *Gitlabctl) InitRootCommand() {
 	var outputFormat string
 	var outputFile string

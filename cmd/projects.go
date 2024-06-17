@@ -5,6 +5,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// InitProjectsCmd initializes the projects command for the gitlabctl CLI. This command sets up the flags for the command,
+// parsing the provided group ID, archived, and mine flags before passing them to the projects package for enumeration.
 func (a *Gitlabctl) InitProjectsCmd() {
 	options := projects.EnumerateProjectsOptions{
 		Mine:     true,
