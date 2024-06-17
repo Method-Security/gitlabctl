@@ -76,6 +76,8 @@ dockers:
   - image_templates:
       - "ghcr.io/method-security/gitlabctl:{{ .Version }}-amd64"
       - "ghcr.io/method-security/gitlabctl:latest-amd64"
+      - "docker.io/methodsecurity/gitlabctl:{{ .Version }}-amd64"
+      - "docker.io/methodsecurity/gitlabctl:latest-amd64"
     use: buildx
     goos: linux
     goarch: amd64
@@ -95,6 +97,8 @@ dockers:
   - image_templates:
       - "ghcr.io/method-security/gitlabctl:{{ .Version }}-arm64"
       - "ghcr.io/method-security/gitlabctl:latest-arm64"
+      - "docker.io/methodsecurity/gitlabctl:{{ .Version }}-arm64"
+      - "docker.io/methodsecurity/gitlabctl:latest-arm64"
     use: buildx
     goos: linux
     goarch: arm64
@@ -117,6 +121,19 @@ docker_manifests:
     image_templates:
     - 'ghcr.io/method-security/gitlabctl:{{ .Version }}-amd64'
     - 'ghcr.io/method-security/gitlabctl:{{ .Version }}-arm64'
+  - name_template: 'ghcr.io/method-security/gitlabctl:latest'
+    image_templates:
+    - 'ghcr.io/method-security/gitlabctl:{{ .Version }}-amd64'
+    - 'ghcr.io/method-security/gitlabctl:{{ .Version }}-arm64'
+  - name_template: 'methodsecurity/gitlabctl:{{ .Version }}'
+    image_templates:
+    - 'docker.io/methodsecurity/gitlabctl:{{ .Version }}-amd64'
+    - 'docker.io/methodsecurity/gitlabctl:{{ .Version }}-amd64'
+  - name_template: 'methodsecurity/gitlabctl:latest'
+    image_templates:
+    - 'docker.io/methodsecurity/gitlabctl:{{ .Version }}-amd64'
+    - 'docker.io/methodsecurity/gitlabctl:{{ .Version }}-amd64'
+
 
 source:
   enabled: true
