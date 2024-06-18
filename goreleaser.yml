@@ -85,7 +85,7 @@ dockers:
       - build-linux
     build_flag_templates:
       - "--label=org.opencontainers.image.title={{ .ProjectName }}"
-      - "--label=org.opencontainers.image.description=An on-rails AWS enumeration tool"
+      - "--label=org.opencontainers.image.description=An on-rails Gitlab enumeration tool"
       - "--label=org.opencontainers.image.vendor=Method Security"
       - "--label=org.opencontainers.image.version={{ .Version }}"
       - "--label=org.opencontainers.image.created={{ .Date }}"
@@ -106,7 +106,7 @@ dockers:
       - build-linux
     build_flag_templates:
       - "--label=org.opencontainers.image.title={{ .ProjectName }}"
-      - "--label=org.opencontainers.image.description=An on-rails AWS enumeration tool"
+      - "--label=org.opencontainers.image.description=An on-rails Gitlab enumeration tool"
       - "--label=org.opencontainers.image.vendor=Method Security"
       - "--label=org.opencontainers.image.version={{ .Version }}"
       - "--label=org.opencontainers.image.created={{ .Date }}"
@@ -128,11 +128,11 @@ docker_manifests:
   - name_template: 'methodsecurity/gitlabctl:{{ .Version }}'
     image_templates:
     - 'docker.io/methodsecurity/gitlabctl:{{ .Version }}-amd64'
-    - 'docker.io/methodsecurity/gitlabctl:{{ .Version }}-amd64'
+    - 'docker.io/methodsecurity/gitlabctl:{{ .Version }}-arm64'
   - name_template: 'methodsecurity/gitlabctl:latest'
     image_templates:
     - 'docker.io/methodsecurity/gitlabctl:{{ .Version }}-amd64'
-    - 'docker.io/methodsecurity/gitlabctl:{{ .Version }}-amd64'
+    - 'docker.io/methodsecurity/gitlabctl:{{ .Version }}-arm64'
 
 
 source:
